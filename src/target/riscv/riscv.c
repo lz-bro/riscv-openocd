@@ -3743,6 +3743,7 @@ int riscv_openocd_poll(struct target *target)
 	unsigned int should_resume = 0;
 	unsigned int halted = 0;
 	unsigned int running = 0;
+	unsigned int cause_groups = 0;
 	struct target_list *entry;
 	foreach_smp_target(entry, targets) {
 		struct target *t = entry->target;
@@ -3790,6 +3791,44 @@ int riscv_openocd_poll(struct target *target)
 		LOG_TARGET_DEBUG(target, "resume all");
 		riscv_resume(target, true, 0, 0, 0, false);
 	} else if (halted && running) {
+		LOG_TARGET_DEBUG(target, "SMP group is in inconsistent state: %u halted, %u running",
+					halted, running);
+
+		/* The SMP group is in an inconsistent state - some harts in the group have halted
+		 * whereas others are running. The reasons for that (and corresponding
+		 * OpenOCD actions) could be:
+		 * 1) The targets are in the process of halting due to halt groups
+		 *    but not all of them halted --> poll again so that the halt reason of every
+		 *    hart can be accurately determined (e.g. semihosting).
+		 * 2) The targets do not support halt groups --> OpenOCD must halt
+		 *    the remaining harts by a standard halt request.
+		 * 3) The hart states got out of sync for some other unknown reason (problem?). -->
+		 *    Same as previous - try to halt the harts by a standard halt request
+		 *    to get them back in sync. */
+
+		/* Detect if the harts are just in the process of halting due to a halt group */
+		foreach_smp_target(entry, targets)
+		{
+			struct target *t = entry->target;
+			if (t->state == TARGET_HALTED) {
+				riscv_reg_t dcsr;
+				if (riscv_reg_get(t, &dcsr, GDB_REGNO_DCSR) != ERROR_OK)
+					return ERROR_FAIL;
+				if (get_field(dcsr, CSR_DCSR_CAUSE) == CSR_DCSR_CAUSE_GROUP)
+					cause_groups++;
+				else
+					/* This hart has halted due to something else than a halt group.
+					 * Don't continue checking the rest - exit early. */
+					break;
+			}
+		}
+		if (halted == cause_groups) {
+			LOG_TARGET_DEBUG(target, "The harts appear to just in the process of halting due to halt group. "
+						"re-poll the hart state.");
+			return riscv_openocd_poll(target);
+		}
+
+		/* Halting the whole SMP group to bring it in sync. */
 		LOG_TARGET_DEBUG(target, "halt all; halted=%d",
 			halted);
 		riscv_halt(target);
