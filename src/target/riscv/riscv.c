@@ -5851,6 +5851,13 @@ COMMAND_HANDLER(handle_riscv_virt2phys_mode)
 	return ERROR_OK;
 }
 
+static const struct command_registration trace_command_handlers[] = {
+	{
+		.chain = trace_encoder_command_group_handlers
+	},
+	COMMAND_REGISTRATION_DONE
+};
+
 static const struct command_registration riscv_exec_command_handlers[] = {
 	{
 		.name = "dump_sample_buf",
@@ -6124,6 +6131,13 @@ static const struct command_registration riscv_exec_command_handlers[] = {
 			"When off, users need to take care of memory coherency themselves, for example by using "
 			"`riscv exec_progbuf` to execute fence or CMO instructions."
 	},
+	{
+		.name = "trace",
+		.mode = COMMAND_ANY,
+		.usage = "",
+		.help = "Trace Command Group",
+		.chain = trace_command_handlers
+	},
 	COMMAND_REGISTRATION_DONE
 };
 
@@ -6264,6 +6278,8 @@ static void riscv_info_init(struct target *target, struct riscv_info *r)
 	r->wp_allow_napot_trigger = true;
 
 	r->autofence = true;
+
+	r->encoder_info = (struct encoder_info *)calloc(1, sizeof(struct encoder_info));
 }
 
 static int riscv_resume_go_all_harts(struct target *target)

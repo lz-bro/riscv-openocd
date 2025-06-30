@@ -14,6 +14,7 @@ struct riscv_program;
 #include "target/register.h"
 #include <helper/command.h>
 #include <helper/bits.h>
+#include "trace/trace.h"
 
 #define RISCV_COMMON_MAGIC	0x52495356U
 
@@ -365,6 +366,8 @@ struct riscv_info {
 	bool wp_allow_ge_lt_trigger;
 
 	bool autofence;
+
+	struct encoder_info *encoder_info;
 };
 
 enum riscv_priv_mode {
