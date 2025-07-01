@@ -58,6 +58,27 @@ struct encoder_info {
 	unsigned int srcbits;
 };
 
+enum ts_mode {
+	NO_MODE,
+	EXTERNAL,
+	INTERNAL_SYSTEM,
+	INTERNAL_CORE,
+	SHARED
+};
+
+struct timestamp_info {
+	target_addr_t base;
+	bool impl_reset;
+	bool was_reset;
+	bool was_enabled;
+	bool run_halt;
+	enum ts_mode mode;
+	unsigned int prescale;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
+
+extern const struct command_registration timestamp_command_group_handlers[];
+
 
 #endif

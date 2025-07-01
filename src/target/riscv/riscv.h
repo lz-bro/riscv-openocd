@@ -368,6 +368,7 @@ struct riscv_info {
 	bool autofence;
 
 	struct encoder_info *encoder_info;
+	struct timestamp_info *timestamp_info;
 };
 
 enum riscv_priv_mode {
