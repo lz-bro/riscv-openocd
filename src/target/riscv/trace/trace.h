@@ -76,9 +76,17 @@ struct timestamp_info {
 	unsigned int prescale;
 };
 
+struct funnel_info {
+	target_addr_t base;
+	bool was_reset;
+	bool was_enabled;
+	unsigned int port;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
 
 extern const struct command_registration timestamp_command_group_handlers[];
 
+extern const struct command_registration trace_funnel_command_group_handlers[];
 
 #endif

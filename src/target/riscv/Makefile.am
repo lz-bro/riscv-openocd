@@ -32,6 +32,7 @@ noinst_LTLIBRARIES += %D%/libriscv.la
        %D%/debug_reg_printer.c \
        %D%/trace/trace.c \
        %D%/trace/trace-encoder.c \
-       %D%/trace/timestamp.c
+       %D%/trace/timestamp.c \
+       %D%/trace/trace-funnel.c
 
 STARTUP_TCL_SRCS += %D%/startup.tcl

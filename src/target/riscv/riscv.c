@@ -5858,6 +5858,9 @@ static const struct command_registration trace_command_handlers[] = {
 	{
 		.chain = timestamp_command_group_handlers
 	},
+	{
+		.chain = trace_funnel_command_group_handlers
+	},
 	COMMAND_REGISTRATION_DONE
 };
 
@@ -6284,6 +6287,7 @@ static void riscv_info_init(struct target *target, struct riscv_info *r)
 
 	r->encoder_info = (struct encoder_info *)calloc(1, sizeof(struct encoder_info));
 	r->timestamp_info = (struct timestamp_info *)calloc(1, sizeof(struct timestamp_info));
+	r->funnel_info = (struct funnel_info *)calloc(1, sizeof(struct funnel_info));
 }
 
 static int riscv_resume_go_all_harts(struct target *target)
