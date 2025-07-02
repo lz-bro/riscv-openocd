@@ -370,6 +370,7 @@ struct riscv_info {
 	struct encoder_info *encoder_info;
 	struct timestamp_info *timestamp_info;
 	struct funnel_info *funnel_info;
+	struct atbbridge_info *atbbridge_info;
 };
 
 enum riscv_priv_mode {

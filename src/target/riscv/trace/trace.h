@@ -83,10 +83,19 @@ struct funnel_info {
 	unsigned int port;
 };
 
+struct atbbridge_info {
+	target_addr_t base;
+	bool was_reset;
+	bool was_enabled;
+	unsigned int id;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
 
 extern const struct command_registration timestamp_command_group_handlers[];
 
 extern const struct command_registration trace_funnel_command_group_handlers[];
+
+extern const struct command_registration atbbridge_command_group_handlers[];
 
 #endif
