@@ -90,6 +90,13 @@ struct atbbridge_info {
 	unsigned int id;
 };
 
+struct cs_funnel_info {
+	target_addr_t base;
+	bool was_enabled;
+	unsigned int port;
+	unsigned int priority;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
 
 extern const struct command_registration timestamp_command_group_handlers[];
@@ -97,5 +104,7 @@ extern const struct command_registration timestamp_command_group_handlers[];
 extern const struct command_registration trace_funnel_command_group_handlers[];
 
 extern const struct command_registration atbbridge_command_group_handlers[];
+
+extern const struct command_registration coresight_funnel_command_group_handlers[];
 
 #endif

@@ -34,6 +34,7 @@ noinst_LTLIBRARIES += %D%/libriscv.la
        %D%/trace/trace-encoder.c \
        %D%/trace/timestamp.c \
        %D%/trace/trace-funnel.c \
-       %D%/trace/atb-bridge.c
+       %D%/trace/atb-bridge.c \
+       %D%/trace/coresight-funnel.c
 
 STARTUP_TCL_SRCS += %D%/startup.tcl
