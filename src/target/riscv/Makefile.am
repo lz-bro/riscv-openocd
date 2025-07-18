@@ -19,6 +19,7 @@ noinst_LTLIBRARIES += %D%/libriscv.la
        %D%/riscv-013_reg.h \
        %D%/trace/trace_defines.h \
        %D%/trace/trace.h \
+       %D%/trace/coresight-tmc.h \
        %D%/batch.c \
        %D%/program.c \
        %D%/riscv-011.c \
@@ -35,6 +36,7 @@ noinst_LTLIBRARIES += %D%/libriscv.la
        %D%/trace/timestamp.c \
        %D%/trace/trace-funnel.c \
        %D%/trace/atb-bridge.c \
-       %D%/trace/coresight-funnel.c
+       %D%/trace/coresight-funnel.c \
+       %D%/trace/coresight-tmc.c
 
 STARTUP_TCL_SRCS += %D%/startup.tcl

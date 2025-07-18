@@ -372,6 +372,7 @@ struct riscv_info {
 	struct funnel_info *funnel_info;
 	struct atbbridge_info *atbbridge_info;
 	struct cs_funnel_info *cs_funnel_info;
+	struct cs_tmc_info *cs_tmc_info;
 };
 
 enum riscv_priv_mode {

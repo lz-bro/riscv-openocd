@@ -97,6 +97,14 @@ struct cs_funnel_info {
 	unsigned int priority;
 };
 
+struct cs_tmc_info {
+	target_addr_t etf_base;
+	target_addr_t etr_base;
+	target_addr_t hwaddr;
+	uint64_t ram_size;
+	uint64_t buf_size;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
 
 extern const struct command_registration timestamp_command_group_handlers[];
@@ -106,5 +114,7 @@ extern const struct command_registration trace_funnel_command_group_handlers[];
 extern const struct command_registration atbbridge_command_group_handlers[];
 
 extern const struct command_registration coresight_funnel_command_group_handlers[];
+
+extern const struct command_registration coresight_tmc_command_group_handlers[];
 
 #endif
