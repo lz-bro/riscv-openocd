@@ -105,6 +105,12 @@ struct cs_tmc_info {
 	uint64_t buf_size;
 };
 
+struct cs_ts_info {
+	target_addr_t base;
+	bool halt_debug;
+	uint64_t cntval;
+};
+
 extern const struct command_registration trace_encoder_command_group_handlers[];
 
 extern const struct command_registration timestamp_command_group_handlers[];
@@ -116,5 +122,7 @@ extern const struct command_registration atbbridge_command_group_handlers[];
 extern const struct command_registration coresight_funnel_command_group_handlers[];
 
 extern const struct command_registration coresight_tmc_command_group_handlers[];
+
+extern const struct command_registration coresight_timestamp_command_group_handlers[];
 
 #endif

@@ -37,6 +37,7 @@ noinst_LTLIBRARIES += %D%/libriscv.la
        %D%/trace/trace-funnel.c \
        %D%/trace/atb-bridge.c \
        %D%/trace/coresight-funnel.c \
-       %D%/trace/coresight-tmc.c
+       %D%/trace/coresight-tmc.c \
+       %D%/trace/coresight-timestamp.c
 
 STARTUP_TCL_SRCS += %D%/startup.tcl
