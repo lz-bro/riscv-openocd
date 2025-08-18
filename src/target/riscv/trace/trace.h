@@ -7,6 +7,7 @@
 
 int trace_reg_read(struct target *target, target_addr_t address, uint32_t *value);
 int trace_reg_write(struct target *target, target_addr_t address, uint32_t value);
+int target_read_phys_buffer(struct target *target, target_addr_t address, uint32_t size, uint8_t *buffer);
 
 enum inst_mode {
 	INSTMODE_OFF = 0,

@@ -469,7 +469,7 @@ COMMAND_HANDLER(handle_dump_command)
 	while (size > 0) {
 		size_t size_written;
 		uint32_t this_run_size = (size > buf_size) ? buf_size : size;
-		retval = target_read_buffer(target, address, this_run_size, buffer);
+		retval = target_read_phys_buffer(target, address, this_run_size, buffer);
 		if (retval != ERROR_OK)
 			break;
 
